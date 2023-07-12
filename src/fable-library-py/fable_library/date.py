@@ -44,6 +44,20 @@ def create(
 def year(d: datetime) -> int:
     return d.year
 
+def month(d: datetime) -> int:
+    return d.month
+
+def date(d: datetime) -> int:
+    return d.day
+
+def hour(d: datetime) -> int:
+    return d.hour
+
+def minute(d: datetime) -> int:
+    return d.minute
+
+def second(d: datetime) -> int:
+    return d.second
 
 def date_to_string_with_custom_format(date: datetime, format: str, utc: bool) -> str:
     def match(match: Match[str]) -> str:
@@ -133,11 +147,26 @@ def date_to_string_with_custom_format(date: datetime, format: str, utc: bool) ->
 
 
 def date_to_string_with_offset(date: datetime, format: Optional[str] = None) -> str:
+    if format == 'O' or format == 'o':
+        utc = date.tzinfo == timezone.utc
+        if utc:
+            d1 = date.replace(tzinfo=None)
+            return d1.isoformat("T", "milliseconds") + "Z"
+        else:
+            return date.isoformat("T", "milliseconds")
+
     if format and len(format) == 1:
         return date_to_string_with_custom_format(date, format, True)
 
     raise NotImplementedError("date_to_string_with_offset")
 
+def dateToISOString(date: datetime, utc: bool) -> str:
+    utc = date.tzinfo == timezone.utc
+    if utc:
+        d1 = date.replace(tzinfo=None)
+        return d1.isoformat("T", "milliseconds") + "Z"
+    else:
+        return date.isoformat("T", "milliseconds")
 
 def date_to_string_with_kind(date: datetime, format: Optional[str] = None) -> str:
     utc = date.tzinfo == timezone.utc

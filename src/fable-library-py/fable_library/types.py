@@ -131,7 +131,9 @@ def record_compare_to(self: Record, other: Record) -> int:
 
     elif hasattr(self, "__dict__") and self.__dict__:
         for name in self.__dict__.keys():
-            if self.__dict__[name] < other.__dict__.get(name):
+            if self.__dict__[name] is None and other.__dict__.get(name) is None:
+                return 0
+            elif self.__dict__[name] < other.__dict__.get(name):
                 return -1
             elif self.__dict__[name] > other.__dict__.get(name):
                 return 1

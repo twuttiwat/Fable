@@ -69,5 +69,19 @@ def op_subtraction(
 def min_value() -> datetime:
     return datetime.min
 
+def to_local_time(x: datetime) -> datetime:
+    return x.astimezone()
 
-__all__ = ["now", "op_addition", "op_subtraction", "parse", "try_parse", "utc_now"]
+def date(d: datetime) -> int:
+    return d.day
+
+def hour(d: datetime) -> int:
+    return d.hour
+
+def minute(d: datetime) -> int:
+    return d.minute
+
+def second(d: datetime) -> int:
+    return d.second
+
+__all__ = ["now", "op_addition", "op_subtraction", "parse", "try_parse", "utc_now", "to_local_time", "date", "hour", "minute", "second"]
